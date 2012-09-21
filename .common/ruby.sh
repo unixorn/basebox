@@ -7,7 +7,7 @@ make && make install
 cd ..
 rm -rf *yaml*
 
-wget -O- http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.2-p290.tar.gz | tar oxz
+wget -O- http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz | tar oxz
 cd ruby*
 ./configure --prefix=/opt/vagrant --with-opt-dir=/opt/vagrant
 make && make install
