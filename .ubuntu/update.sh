@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/sh
 
 apt-get update
 apt-get -y upgrade
