@@ -17,7 +17,7 @@
 
 2.  Install the Image
     
-        vagrant box add centos-$(date -u +%Y.%m.%d)
+        vagrant box add centos centos-vagrant-$(date -u +%Y.%m.%d).box
 
 3.  Share the Image
     
