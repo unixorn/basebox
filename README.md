@@ -22,4 +22,4 @@
 3.  Share the Image
     
     Place the image on an HTTP server where it can be shared &
-    referenced in the Vagrantfile at the top level of this project.
+    referenced in a Vagrantfile.
