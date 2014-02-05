@@ -1,0 +1,75 @@
+{
+    "builders": [
+        {
+            "type": "virtualbox",
+            "boot_command": [
+                "<esc>",
+                "<wait>linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos.cfg<enter>"
+            ],
+            "boot_wait": "5s",
+            "disk_size": 10240,
+            "guest_os_type": "RedHat_64",
+            "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+            "headless": false,
+            "http_directory": "http",
+            "iso_checksum": "f21a71e8e31df73297bdd1ccd4a64a36831284bd",
+            "iso_checksum_type": "sha1",
+            "iso_url": "http://ftp.osuosl.org/pub/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+            "ssh_username": "vagrant",
+            "ssh_password": "vagrant",
+            "ssh_wait_timeout": "60m",
+            "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+            "vboxmanage": [
+                ["modifyvm", "{{.Name}}", "--memory", "1024"],
+                ["modifyvm", "{{.Name}}", "--cpus", "1"]
+            ],
+            "virtualbox_version_file": ".vbox_version",
+            "vm_name": "centos"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/yum.sh",
+            "override": {
+                "virtualbox": {
+                    "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+                }
+            }
+        },
+        {
+            "type": "shell",
+            "only": ["virtualbox"],
+            "script": "scripts/virtualbox.sh",
+            "override": {
+                "virtualbox": {
+                    "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+                }
+            }
+        },
+        {
+            "type": "shell",
+            "script": "scripts/chef.sh",
+            "override": {
+                "virtualbox": {
+                    "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+                }
+            }
+        },
+        {
+            "type": "shell",
+            "script": "scripts/cleanup.sh",
+            "override": {
+                "virtualbox": {
+                    "execute_command": "echo 'vagrant'|{{.Vars}} sudo -E -S bash '{{.Path}}'"
+                }
+            }
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "output": "centos-virtualbox.box"
+        }
+    ]
+}
