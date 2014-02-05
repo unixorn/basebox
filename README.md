@@ -12,7 +12,8 @@
 
 1.  Building an Image
     
-        packer build centos.json
+        packer build -only=vagrant centos.json
+        mv centos-vagrant.box centos-vagrant-$(date -u +%Y.%m.%d).box
 
 2.  Install the Image
     
